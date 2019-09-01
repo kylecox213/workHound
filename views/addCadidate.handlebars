@@ -1,0 +1,88 @@
+<div class="row mt-5" style="max-width: 1200px; margin:auto">
+                <div class="col-md-6 m-auto">
+                  <div class="card card-body">
+                    <h1 class="text-center mb-3">Add Candidate</h1>
+                    <form action="/users/register" method="POST">
+                      <div class="form-group">
+                        <label for="firstname">First Name</label>
+                        <input
+                          type="firstname"
+                          id="firstname"
+                          name="firstname"
+                          class="form-control"
+                          placeholder="Enter First Name"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                            <label for="lastname">Last Name</label>
+                            <input
+                              type="lastname"
+                              id="lastname"
+                              name="lastname"
+                              class="form-control"
+                              placeholder="Enter Last Name"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                                <label for="email">Email</label>
+                                <input
+                                  type="email"
+                                  id="email"
+                                  name="email"
+                                  class="form-control"
+                                  placeholder="Enter Your Email"
+                                  required
+                                />
+                              </div>
+                         <div class="form-group">
+                        <label for="position">Position</label>
+                        <input
+                          type="text"
+                          id="position"
+                          name="position"
+                          class="form-control"
+                          placeholder="Enter Name of Position"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                            <label for="company">Company</label>
+                            <input
+                              type="text"
+                              id="company"
+                              name="company"
+                              class="form-control"
+                              placeholder="Enter Name of Company"
+                              required
+                            />
+                          </div>
+                          <br>
+                         <div class="form-group">
+                            <label for="date">Interview Date</label>
+                            <input
+                              type="text"
+                              id="date"
+                              name="date"
+                              class="form-control"
+                              placeholder="Enter Interview Date"
+                            />
+                            <br>
+                            <label for="time">Interview Time</label>
+                            <input
+                              type="text"
+                              id="time"
+                              name="time"
+                              class="form-control"
+                              placeholder="Enter Interview Time"
+                            />
+                          </div>
+                          <br>    
+                      
+                      <button type="submit" class="btn btn-primary btn-block">Add Candidate</button>
+                    </form>
+                    
+                  </div>
+                </div>
+              </div>
