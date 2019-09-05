@@ -1,0 +1,33 @@
+<nav class="navbar p-4">
+    <button class="btn">Home</button>
+    <button class="btn">Add Candidate</button>
+    <button class="btn">View All</button>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search Candidate" aria-label="Search">
+        <button class="btn my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+
+<div class="container">
+
+    <div id="cand-list">
+        <ul>
+            {{#each candidates}}
+                <li>
+                    <div class="col">
+                        {{firstName}}
+                    </div>
+                    <div class="col">
+                        {{lastName}}
+                    </div>
+                    <div class="col">
+                        <a href="/user/{{id}}">Candidate Page</a>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="/js/viewall.js"></script>
