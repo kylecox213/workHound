@@ -1,3 +1,79 @@
-.list-group-item {
-  line-height: 2.5;
+
+/* UNIVERSAL CSS
+These elements are found on at least two separate pages */
+
+body  {
+  background: #FCFCFC;
+}
+
+.btn {
+  background: #267555;
+  color: #FFF;
+  border: 0.5px solid #0F593B;
+}
+
+.btn:hover {
+  background: #0F593B;
+}
+
+.btn:active {
+  background: #0F593B;
+}
+
+a {
+  text-decoration: none;
+  color: #0F593B;
+}
+
+a:visited {
+  color: #72AE95;
+}
+
+a:hover {
+  color: #267555;
+  text-decoration: underline;
+}
+
+#card-logo {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  height: 75px;
+  width: auto;
+  transform: scaleX(-1);
+}
+
+
+/* PROMO CSS
+These elements are only found on the promo page advertising the app */
+
+
+
+/* REGISTRATION CSS
+These elements are only found on the registration page */
+
+#reg-tooltip  {
+  text-align: center;
+  color: #72AE95;
+  font-weight: bold;
+  margin-left: 10px;
+  padding: 0 10px;
+  border: 0.5px solid #0F593B;
+  border-radius: 10px;
+  background: #DDDDDD;
+}
+
+
+/* LOGIN CSS
+These elements are only found on the login page */
+
+
+
+
+/* USER HOMEPAGE CSS
+These elements are only found on the user's personal homepage */
+
+nav {
+  background: #72AE95;
+  border-bottom: 2px solid #003C24
 }
