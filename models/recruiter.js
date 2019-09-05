@@ -12,5 +12,9 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
     
+    Recruiter.associate = function (models) {
+        Recruiter.hasMany(models.Candidate);
+    }
+
     return Recruiter;
 };
