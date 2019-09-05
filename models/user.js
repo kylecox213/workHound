@@ -18,16 +18,14 @@ module.exports = function (sequelize, DataTypes) {
         },
         // And user type in the User model
         // Default user types to false, reset to true based on account creation settings
-        // type: {
-        //     isRecruiter: {
-        //         type: DataTypes.Boolean,
-        //         defaultValue: false
-        //     },
-        //     isCandidate: {
-        //         type: DataTypes.Boolean,
-        //         defaultValue: false
-        //     }
-        // }
+            isRecruiter: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false
+            },
+            isCandidate: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false
+            }
         // Other data to be stored in associated user account type tables
     });
 
@@ -38,27 +36,31 @@ module.exports = function (sequelize, DataTypes) {
         return bcrypt.compareSync(password, this.password);
     };
 
-    // // Associate the user to its proper account model
-    // User.associate = function (models) {
-    //     let acctType;
-    //     // If the User is a recruiter, associate it with the Recruiter model
-    //     if (this.type.isRecruiter) {
-    //         acctType = models.Recruiter;
-    //     };
-    //     // If the User is a candidate, associate it with the Candidate model
-    //     if (this.type.isCandidate) {
-    //         acctType = models.Candidate;
-    //     };
+    // Associate the user to its proper account model
+    User.associate = function (models) {
+        // If the User is a recruiter, associate it with the Recruiter model
+        if (this.isRecruiter) {
+            User.belongsTo(models.Recruiter, {
+                foreignkey: {
+                    allowNull: true
+                }
+            })
+    
+        };
+        // If the User is a candidate, associate it with the Candidate model
+        if (this.isCandidate) {
+            User.belongsTo(models.Candidate, {
+                foreignkey: {
+                    allowNull: true
+                }
+            })
+            };
     //     // User the 1:1 belongsTo association so the foreignkey is stored inside the User
     //     // Thinking we should chain our post commands, so based on user input
     //     // Either create the candidate/recruiter, then in the callback put a post command
     //     // to create the User, that way an associated foreignkey can always be added here
-    //     User.belongsTo(acctType, {
-    //         foreignkey: {
-    //             allowNull: false
-    //         }
-    //     })
-    // }
+
+    }
 
     // Hook to hash passwords before creating user account
     // Means that plain text passwords are never stored - higher security

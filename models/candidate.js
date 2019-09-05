@@ -11,6 +11,10 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         }
     });
+    
+    Candidate.associate = function (models) {
+        Candidate.hasMany(models.Job);
+    }
 
     return Candidate;
 };
