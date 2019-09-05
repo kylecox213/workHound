@@ -13,8 +13,8 @@ module.exports = function (app) {
   // POST query for user registration
   app.post("/api/signup", function (req, res) {
     // If the client request indicates that the user is signing up as a candidate...
-    // That is, the isCandidate property isn't NOT truthy...
-    if (req.body.isCandidat) {
+    // Test against the string value true because the request body does not pass a boolean
+    if (req.body.isCandidate === "true") {
       // Create a new CANDIDATE in the DB
       db.Candidate.create({
         // Funnel in the first and last name info
@@ -78,8 +78,9 @@ module.exports = function (app) {
   });
 
 
+
   // GET query for user data
-  app.get("/api/user_data", function (req, res) {
+  app.get("/api/user_data/self", function (req, res) {
     // If the client request contains no user...
     if (!req.user) {
       // Send back a blank object

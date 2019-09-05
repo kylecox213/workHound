@@ -1,0 +1,39 @@
+<nav class="navbar p-4">
+    <button class="btn">Home</button>
+    <button class="btn">Add Candidate</button>
+    <button class="btn">View All</button>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search Candidate" aria-label="Search">
+        <button class="btn my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+
+<div class="container">
+
+    <form class="jobForm">
+        <div class="row">
+            <div class="form-group col">
+                <label class="sr-only" for="firstname">First Name</label>
+                <input type="text" id="firstname" class="form-control" value={{cand.firstName}} disabled>
+            </div>
+            <div class="form-group col">
+                <label class="sr-only" for="lastname">Last Name</label>
+                <input type="text" id="lastname" class="form-control" value={{cand.lastName}} disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="email-input">Email Address</label>
+            <input type="email" id="email-input" class="form-control" value={{cand.email}} disabled>
+        </div>
+        <div class="form-group">
+            <label for="position">Position Title</label>
+            <input type="text" id="position" class="form-control" placeholder="e.g., Software Developer" required>
+        </div>
+        <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="company" class="form-control" placeholder="e.g., Capital One" required>
+        </div>
+        <button type="submit" class="btn btn-block">Register</button>
+    </form>
+
+</div>
