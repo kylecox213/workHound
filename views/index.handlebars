@@ -2,6 +2,7 @@
   <div class="col-md-6 m-auto">
     <div class="card card-body">
       <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Login</h1>
+      <img id="card-logo" src="/imgs/hound.png">
       <form class="login" action="/api/login" method="POST">
         <div class="form-group">
           <label for="email-input">Email</label>
@@ -12,7 +13,7 @@
           <input type="password" id="password-input" name="password" class="form-control" placeholder="Enter Password"
             required>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <button type="submit" class="btn btn-block">Login</button>
       </form>
       <p class="lead mt-4">
         No Account? <a href="/users/register">Register</a>

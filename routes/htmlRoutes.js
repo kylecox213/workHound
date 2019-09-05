@@ -4,6 +4,11 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function (app) {
 
+  // Get request for the promo page
+  app.get("/promo", function (req, res) {
+    res.render("promo");
+  });
+
   // Get request for the application URL without any specific URL params
   app.get("/", function (req, res) {
     // If the user is already logged in...
