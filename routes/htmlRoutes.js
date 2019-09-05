@@ -40,7 +40,7 @@ module.exports = function (app) {
     }
     // Otherwise, send them to the registration page
     res.render("register");
-  })
+  });
 
   // Get request for the 'members' page once a user is logged in
   app.get("/members", isAuthenticated, function (req, res) {

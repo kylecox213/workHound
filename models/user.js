@@ -18,16 +18,40 @@ module.exports = function (sequelize, DataTypes) {
         },
         // And user type in the User model
         // Default user types to false, reset to true based on account creation settings
-            isRecruiter: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false
-            },
-            isCandidate: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false
-            }
+        isRecruiter: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        isCandidate: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        }
         // Other data to be stored in associated user account type tables
     });
+
+    // Associate the user to its proper account model
+    User.associate = function (models) {
+        // Create an association between Users and Recruiters
+        User.belongsTo(models.Recruiter, {
+            foreignkey: {
+                allowNull: true
+            }
+        });
+        // Create an association between Users and Candidates
+        User.belongsTo(models.Candidate, {
+            foreignkey: {
+                allowNull: true
+            }
+        });
+        // Use the 1:1 belongsTo association so the foreignkey is stored inside the User
+        // Create an association to both Recruiter and Candidate models, and at the time of
+        // account registration, create the type of account actually associated with this User login.
+        // Because Users cannot edit their User accounts, this will functionally pair them with
+        // only one or the other. The upshot is that we are able to populate the Users table
+        // with both RecruiterIds and CandidateIds, allowing us to bridge the User login
+        // (which is integral to the authentication schema) to the individual account information
+        // which necessarily changes based on the type of user that is logged in
+    };
 
     // Give each user a function to validate passwords
     // Takes in the hashed password (created by the hook below)
@@ -36,31 +60,6 @@ module.exports = function (sequelize, DataTypes) {
         return bcrypt.compareSync(password, this.password);
     };
 
-    // Associate the user to its proper account model
-    User.associate = function (models) {
-        // If the User is a recruiter, associate it with the Recruiter model
-        if (this.isRecruiter) {
-            User.belongsTo(models.Recruiter, {
-                foreignkey: {
-                    allowNull: true
-                }
-            })
-    
-        };
-        // If the User is a candidate, associate it with the Candidate model
-        if (this.isCandidate) {
-            User.belongsTo(models.Candidate, {
-                foreignkey: {
-                    allowNull: true
-                }
-            })
-            };
-    //     // User the 1:1 belongsTo association so the foreignkey is stored inside the User
-    //     // Thinking we should chain our post commands, so based on user input
-    //     // Either create the candidate/recruiter, then in the callback put a post command
-    //     // to create the User, that way an associated foreignkey can always be added here
-
-    }
 
     // Hook to hash passwords before creating user account
     // Means that plain text passwords are never stored - higher security
