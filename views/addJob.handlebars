@@ -1,39 +1,66 @@
 <nav class="navbar p-4">
-    <button class="btn">Home</button>
-    <button class="btn">Add Candidate</button>
-    <button class="btn">View All</button>
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search Candidate" aria-label="Search">
-        <button class="btn my-2 my-sm-0" type="submit">Search</button>
-    </form>
+  <a href="/index"><button class="btn">Home</button></a>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search for Candidate" aria-label="Search">
+    <button class="btn my-2 my-sm-0" type="submit">Search</button>
+  </form>
+  <a href="/users/viewall"><button class="btn">View All Candidates</button></a>
+  <a href="/users/registercandidate"><button class="btn">Add Candidate</button></a>
+  <a href="/logout"><button class="btn">Logout</button></a>
 </nav>
 
-<div class="container">
-
-    <form class="jobForm">
-        <div class="row">
-            <div class="form-group col">
-                <label class="sr-only" for="firstname">First Name</label>
-                <input type="text" id="firstname" class="form-control" value={{cand.firstName}} disabled>
-            </div>
-            <div class="form-group col">
-                <label class="sr-only" for="lastname">Last Name</label>
-                <input type="text" id="lastname" class="form-control" value={{cand.lastName}} disabled>
-            </div>
+<div class="row mt-5" style="max-width: 1200px; margin:auto">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body">
+            <form class="jobForm" data-candidate={{cand.id}}>
+                <div class="row">
+                    <div class="form-group col">
+                        <label class="sr-only" for="firstname">First Name</label>
+                        <input type="text" id="firstname" class="form-control" value={{cand.firstName}} disabled>
+                    </div>
+                    <div class="form-group col">
+                        <label class="sr-only" for="lastname">Last Name</label>
+                        <input type="text" id="lastname" class="form-control" value={{cand.lastName}} disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="email-input">Email Address</label>
+                    <input type="email" id="email-input" class="form-control" value={{cand.email}} disabled>
+                </div>
+                <div class="form-group">
+                    <label for="position">Position Title</label>
+                    <input type="text" id="position" class="form-control" placeholder="e.g., Software Developer"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" class="form-control" placeholder="e.g., Capital One" required>
+                </div>
+                <button id="recruit" type="submit" class="btn btn-block">Recruit {{cand.firstName}}
+                    {{cand.lastName}}</button>
+            </form>
         </div>
-        <div class="form-group">
-            <label class="sr-only" for="email-input">Email Address</label>
-            <input type="email" id="email-input" class="form-control" value={{cand.email}} disabled>
-        </div>
-        <div class="form-group">
-            <label for="position">Position Title</label>
-            <input type="text" id="position" class="form-control" placeholder="e.g., Software Developer" required>
-        </div>
-        <div class="form-group">
-            <label for="company">Company</label>
-            <input type="text" id="company" class="form-control" placeholder="e.g., Capital One" required>
-        </div>
-        <button type="submit" class="btn btn-block">Register</button>
-    </form>
-
+    </div>
 </div>
+
+<div class="modal fade" id="jobModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Success</h4>
+                <a href="/user/{{cand.id}}"><button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></a>
+                </button>
+            </div>
+            <div class="modal-body">
+                You have successfully listed a new potential job for {{cand.firstName}}
+                {{cand.lastName}}.
+            </div>
+            <div class="modal-footer">
+                <a href="/user/{{cand.id}}"><button class="btn" type="button">Close</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/addJob.js"></script>

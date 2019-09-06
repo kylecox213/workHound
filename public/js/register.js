@@ -7,10 +7,12 @@ $(document).ready(function () {
   let firstNameInput = $("input#firstname");
   let lastNameInput = $("input#lastname");
 
+
   // Enable tooltips on the page
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   });
+
 
   // When the signup button is clicked...
   signUpForm.on("submit", function (event) {
@@ -83,6 +85,7 @@ $(document).ready(function () {
       // If there's an error, handle it
     }).catch(handleLoginErr);
   };
+
 
   // Function to handle errors with post-registration login
   function handleLoginErr(err) {
