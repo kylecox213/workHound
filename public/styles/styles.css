@@ -43,6 +43,26 @@ a:hover {
   transform: scaleX(-1);
 }
 
+footer  {
+  background: #0F593B;
+  border-top: 1px solid #DDDDDD;
+  color: #72AE95;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  height: 35px;
+  width: 100%;
+}
+
+footer p  {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  line-height: 0;
+}
+
 
 /* PROMO CSS
 These elements are only found on the promo page advertising the app */
