@@ -44,8 +44,8 @@ module.exports = function (app) {
 
   // Get request for the 'members' page once a user is logged in
   app.get("/members", isAuthenticated, function (req, res) {
-    // Send them to the navbar page, pass in the membername
-    res.render("navbar", {
+    // Send them to the recruiter page, pass in the membername
+    res.render("recruiter", {
       membername: req.user.email
     });
   });

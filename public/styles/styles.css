@@ -1,9 +1,13 @@
 
 /* UNIVERSAL CSS
 These elements are found on at least two separate pages */
+html,body{margin:0;padding:0;}
 
 body  {
-  background: #FCFCFC;
+  width: 100%;
+  height: 93.5vh;
+  background: linear-gradient(to top, #72AE95, #FFF);
+  background-size: cover;
 }
 
 .btn {
