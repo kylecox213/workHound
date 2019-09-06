@@ -32,16 +32,28 @@ module.exports = function (app) {
   });
 
   // Get request for the login page specifically
-  app.get("/index", function (req, res) {
-    // If the user is already logged in...
-    if (req.user) {
-      // Redirect them to the user homepage
-      res.render("navbar", {
-        membername: req.user.email
-      });
+  app.get("/home", function (req, res) {
+    // If the client request contains no user...
+    if (!req.user) {
+      // Send them to the login page
+      res.render("index");
     }
-    // Otherwise, send them to the index page
-    res.render("index");
+    // Otherwise, they must be logged in, so...
+    else {
+      // Query the DB for all the candidates
+      db.Candidate.findAll({
+        where: {
+          RecruiterId: req.user.RecruiterId
+        }
+      })
+        // Then send the data back to the client
+        .then(function (data) {
+          // And render the viewAll page with the candidate data
+          res.render("viewAll", {
+            candidates: data
+          });
+        });
+    }
   });
 
   // Get request for the user registration page
