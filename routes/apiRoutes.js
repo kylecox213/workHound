@@ -1,5 +1,6 @@
 const db = require("../models");
 const passport = require("../config/passport");
+const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function (app) {
 
@@ -10,6 +11,7 @@ module.exports = function (app) {
   });
 
 
+  
   // POST query for user registration
   app.post("/api/signup", function (req, res) {
     // If the client request indicates that the user is signing up as a candidate...
@@ -17,9 +19,10 @@ module.exports = function (app) {
     if (req.body.isCandidate === "true") {
       // Create a new CANDIDATE in the DB
       db.Candidate.create({
-        // Funnel in the first and last name info
+        // Funnel in the first and last name info, plus email
         firstName: req.body.firstName,
-        lastName: req.body.lastName
+        lastName: req.body.lastName,
+        email: req.body.email
         // On callback, pass in the new candidate data
       }).then(function (newCand) {
         // Create a new USER using the sequelize create method
@@ -35,6 +38,7 @@ module.exports = function (app) {
       }).then(function () {
         // On callback, take the new USER through the login route to get authenticated and logged in
         res.redirect(307, "/api/login");
+        return;
       }).catch(function (err) {
         // If there's an error, send it as JSON
         res.json(err);
@@ -44,9 +48,10 @@ module.exports = function (app) {
     else {
       // Create a new RECRUITER in the DB
       db.Recruiter.create({
-        // Funnel in the first and last name info
+        // Funnel in the first and last name info, plus email
         firstName: req.body.firstName,
-        lastName: req.body.lastName
+        lastName: req.body.lastName,
+        email: req.body.email
         // On callback, pass in the new recruiter data
       }).then(function (newRec) {
         // Create a new USER using the sequelize create method
@@ -62,12 +67,14 @@ module.exports = function (app) {
       }).then(function () {
         // On callback, take the new USER through the login route to get authenticated and logged in
         res.redirect(307, "/api/login");
+        return;
       }).catch(function (err) {
         // If there's an error, send it as JSON
         res.json(err);
       });
     }
   });
+
 
 
   // GET query for the logout function
@@ -100,4 +107,29 @@ module.exports = function (app) {
       });
     }
   });
-};
+
+
+
+  // POST query for adding jobs to the database
+  app.post("/api/addjob", isAuthenticated, function (req, res) {
+    // If the client request contains no user...
+    if (!req.user) {
+      // Send back a blank object
+      res.json({});
+    }
+    // Otherwise, a user must be logged into the current session
+    else {
+      // Create a new row in the Jobs table with the data from the request body as well as the logged in user (recruiter)
+      db.Job.create({
+        position: req.body.position,
+        company: req.body.company,
+        CandidateId: req.body.CandidateId,
+        RecruiterId: req.user.RecruiterId
+        // After creating the new job...
+      }).then(function () {
+        // Respond true to the client
+        res.json(true);
+      });
+    };
+  });
+}

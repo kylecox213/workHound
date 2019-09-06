@@ -31,6 +31,19 @@ module.exports = function (app) {
     res.render("index");
   });
 
+  // Get request for the login page specifically
+  app.get("/index", function (req, res) {
+    // If the user is already logged in...
+    if (req.user) {
+      // Redirect them to the user homepage
+      res.render("navbar", {
+        membername: req.user.email
+      });
+    }
+    // Otherwise, send them to the index page
+    res.render("index");
+  });
+
   // Get request for the user registration page
   app.get("/users/register", function (req, res) {
     // If the user is already logged in...
@@ -86,12 +99,35 @@ module.exports = function (app) {
         // with an ID equal to what was passed into the URL parameter
         where: {
           id: req.params.id
-        }})
+        }
+      })
         // Then send the data back to the client
         .then(function (data) {
-        // And render the viewOne page with that candidate's data
-        res.render("viewOne", {
-          user: data
+          // And render the viewOne page with that candidate's data
+          res.render("viewOne", {
+            user: data
+          });
+        });
+    }
+  });
+
+
+  // GET route for the add job form page
+  app.get("/user/:id/addjob", isAuthenticated, function (req, res) {
+    // If the client request contains no user...
+    if (!req.user) {
+      // Send them to the login page
+      res.render("index");
+    }
+    // Otherwise, they must be logged in, so...
+    else {
+      db.Candidate.findOne({
+        where: {
+          id: req.params.id
+        }
+      }).then(function (data) {
+        res.render("addJob", {
+          cand: data
         });
       });
     }
