@@ -4,15 +4,16 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function (app) {
 
-  // POST query route for user login attempts
+  // LOGIN POST
+  // Query route for user login attempts
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
     // Assuming the user passes the local authentication strategy, send them to the members page
     res.json("/members");
   });
 
 
-  
-  // POST query for user registration
+  // USER REGISTRATION POST
+  // Query for user registration
   app.post("/api/signup", function (req, res) {
     // If the client request indicates that the user is signing up as a candidate...
     // Test against the string value true because the request body does not pass a boolean
@@ -76,8 +77,8 @@ module.exports = function (app) {
   });
 
 
-
-  // GET query for the logout function
+  // LOGOUT GET
+  // Query for the logout function
   app.get("/logout", function (req, res) {
     // Log the user out of the current session and send them back to the index page
     req.logout();
@@ -85,8 +86,8 @@ module.exports = function (app) {
   });
 
 
-
-  // GET query for user data
+  // OWN USER DATA GET
+  // Query for user data
   app.get("/api/user_data/self", function (req, res) {
     // If the client request contains no user...
     if (!req.user) {
@@ -109,8 +110,8 @@ module.exports = function (app) {
   });
 
 
-
-  // POST query for adding jobs to the database
+  // ADD A JOB POST
+  // Query for adding jobs to the database
   app.post("/api/addjob", isAuthenticated, function (req, res) {
     // If the client request contains no user...
     if (!req.user) {
@@ -126,10 +127,15 @@ module.exports = function (app) {
         CandidateId: req.body.CandidateId,
         RecruiterId: req.user.RecruiterId
         // After creating the new job...
-      }).then(function () {
-        // Respond true to the client
-        res.json(true);
+      }).then(function (newJob) {
+        db.Relationship.create({
+          CandidateId: newJob.CandidateId,
+          RecruiterId: newJob.RecruiterId
+        }).then(function () {
+          res.json(true);
+        });
       });
-    };
+    }
   });
-}
+};
+

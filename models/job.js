@@ -12,11 +12,12 @@ module.exports = function (sequelize, DataTypes) {
         },
         RecruiterId: {
             type: DataTypes.INTEGER,
-            references: {
-              model: "Recruiters",
-              key: 'id'
-            }
-          }
+            allowNull: false
+        },
+        CandidateId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
     });
 
     return Job;

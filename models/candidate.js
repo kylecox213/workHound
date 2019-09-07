@@ -17,7 +17,7 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Candidate.associate = function (models) {
-        Candidate.hasMany(models.Job);
+        Candidate.belongsToMany(models.Recruiter, {through: 'Relationships'});
     }
 
     return Candidate;

@@ -1,6 +1,6 @@
 
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     let Recruiter = sequelize.define("Recruiter", {
         firstName: {
             type: DataTypes.STRING,
@@ -15,9 +15,9 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false
         }
     });
-    
+
     Recruiter.associate = function (models) {
-        Recruiter.hasMany(models.Candidate);
+        Recruiter.belongsToMany(models.Candidate, { through: 'Relationships' });
     }
 
     return Recruiter;
