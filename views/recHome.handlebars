@@ -9,23 +9,12 @@
   <a href="/logout"><button class="btn">Logout</button></a>
 </nav>
 
-<div class="container">
-    <h1>{{candidate.firstName}}
-        {{candidate.lastName}}</h1>
+<h1>Recruiter homepage</h1>
 
-    <a href="/user/{{candidate.id}}/addjob"><button class="btn" id="addJob">Add a Job</button></a>
-
-<div id="jobs">
-  <ul id="jobslist">
-    {{#each jobs}}
-    <li><p>{{company}}, {{position}}</p></li>
-    {{/each}}
-  </ul>
-</div>
-</div>
 
 <footer>
   <p>&copy; 2019</p>
 </footer>
+
 
 <script type="text/javascript" src="/js/navbar.js"></script>
