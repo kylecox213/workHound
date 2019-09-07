@@ -34,7 +34,7 @@ $(document).ready(function () {
         $.post("/api/addjob", {
             position: jobData.position,
             company: jobData.company,
-            CandidateId: jobData.CandidateId
+            CandidateId: parseInt(jobData.CandidateId)
             // On callback
         }).then(function (data) {
             // If the callback returns something truthy

@@ -128,9 +128,9 @@ module.exports = function (app) {
         RecruiterId: req.user.RecruiterId
         // After creating the new job...
       }).then(function (newJob) {
-        db.Relationship.create({
-          CandidateId: newJob.CandidateId,
-          RecruiterId: newJob.RecruiterId
+        // MAGIC METHODSSSSSSSSS
+        db.Candidate.findOne({ id: newJob.CandidateId}).then(candidate => {
+          candidate.addRecruiter(newJob.RecruiterId)
         }).then(function () {
           res.json(true);
         });
