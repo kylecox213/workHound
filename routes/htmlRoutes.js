@@ -3,12 +3,6 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function (app) {
 
-  // PROMO PAGE - GET query
-  // Get request for the promo page
-  app.get("/promo", function (req, res) {
-    res.render("promo");
-  });
-
 
   // LOGIN PAGE - GET query
   // Get request for the application URL without any specific URL params
@@ -16,7 +10,7 @@ module.exports = function (app) {
     // If the user is already logged in...
     if (req.user) {
       // Don't do anything
-      return;
+      res.redirect("/members");
     }
     // Otherwise, send them to the index (login) page
     res.render("index");
@@ -42,13 +36,32 @@ module.exports = function (app) {
     console.log(req.user);
     // If the user is a candidate...
     if (req.user.isCandidate) {
-      // Send them to the proper homepage
-      res.render("candHome");
+      // Don't do anything
+      return;
     }
     // Otherwise, they must be a recruiter, so...
     else {
-      // Send them to their homepage
-      res.render("recHome");
+      db.Recruiter.findOne({ where: { id: req.user.RecruiterId } }).then(recruiter => {
+        let promises = [];
+        let recPromise = db.Recruiter.findOne({
+          where: {
+            id: req.user.RecruiterId
+          }
+        });
+        promises.push(recPromise);
+        let candsPromise = recruiter.getCandidates();
+        promises.push(candsPromise);
+        Promise.all(promises).then(function (data) {
+          console.log(JSON.stringify(data));
+          // The recruiter will be data[0]
+          // All subsequent indices will be candidates in association with that recruiter
+          // Send them to the other landing page
+          res.render("recHome", {
+            user: data[0],
+            candidates: data[1]
+          });
+        });
+      });
     };
   })
 
@@ -71,18 +84,66 @@ module.exports = function (app) {
   app.get("/members", isAuthenticated, function (req, res) {
     // If the user is a candidate...
     if (req.user.isCandidate) {
-      // Send them to the proper landing page, pass in the membername
-      res.render("candLand", {
-        membername: req.user.email
-      });
+      // Create an array to hold the promises
+      let promises = [];
+      // Create a promise to return the candidate
+      let candPromise =
+        // Query the DB for the candidate
+        db.Candidate.findOne({
+          // with the same ID as the one on the current page
+          where: {
+            id: req.user.CandidateId
+          }
+        });
+      // Push the candPromise into the array
+      promises.push(candPromise);
+      // Create a promise to return the candidate's jobs
+      let jobsPromise =
+        // Query the database for all jobs
+        db.Job.findAll({
+          // associated with the candidate whose ID is the same as the current page
+          where: {
+            CandidateId: req.user.CandidateId
+          }
+        });
+      // Push the jobsPromise into the array
+      promises.push(jobsPromise);
+      // Then, when all all the promises have returned, send the total data to the client
+      Promise.all(promises).then(function (data) {
+        console.log(JSON.stringify(data));
+        // The first index of the data will be the user
+        // The second index will be an array of all the jobs
+        // And render the viewOne page with that candidate's data
+        res.render("candHome", {
+          candidate: data[0],
+          jobs: data[1]
+        });
+      })
     }
     // Otherwise, they must be a recruiter, so...
     else {
-      // Send them to the other landing page
-      res.render("recLand", {
-        membername: req.user.email
+      db.Recruiter.findOne({ where: { id: req.user.RecruiterId } }).then(recruiter => {
+        let promises = [];
+        let recPromise = db.Recruiter.findOne({
+          where: {
+            id: req.user.RecruiterId
+          }
+        });
+        promises.push(recPromise);
+        let candsPromise = recruiter.getCandidates();
+        promises.push(candsPromise);
+        Promise.all(promises).then(function (data) {
+          console.log(JSON.stringify(data));
+          // The recruiter will be data[0]
+          // All subsequent indices will be candidates in association with that recruiter
+          // Send them to the other landing page
+          res.render("recLand", {
+            user: data[0],
+            candidates: data[1]
+          });
+        });
       });
-    };
+    }
   });
 
 
@@ -178,4 +239,11 @@ module.exports = function (app) {
       });
     }
   });
+
+
+  // CATCHALL GET query
+  // For any URL request not explicitly mentioned above
+  app.get("*", function (req, res) {
+    res.render("404");
+  })
 }

@@ -9,12 +9,31 @@
   <a href="/logout"><button class="btn">Logout</button></a>
 </nav>
 
-<h1>Recruiter homepage</h1>
-
-
-<footer>
-  <p>&copy; 2019</p>
-</footer>
+<div class="row mt-5" style="max-width: 1200px; margin:auto">
+  <div class="col-md-6 m-auto">
+    <div class="card card-body">
+      <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>Recruits</h1>
+      <img id="card-logo" src="/imgs/hound.png">
+      <hr>
+      <div id="cands">
+        <ul id="candslist">
+          {{#each candidates}}
+          <li>
+            <p>{{firstName}} {{lastName}} - <a href="/user/{{id}}">Candidate Page</a></p>
+            <ul class="jobslist">
+              {{#each jobs}}
+              <li>
+                <p>{{company}}, {{position}}</p>
+              </li>
+              {{/each}}
+            </ul>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <script type="text/javascript" src="/js/navbar.js"></script>
