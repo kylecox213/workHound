@@ -12,45 +12,51 @@
 <div class="row mt-5" style="max-width: 1200px; margin:auto">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
-      <h1 class="text-center mb-3">Add Candidate</h1>
-      <form action="/users/register" method="POST">
+      <h1 class="text-center mb-3">Register New Candidate</h1>
+      <form id="register">
         <div class="form-group">
           <label for="firstname">First Name</label>
-          <input type="firstname" id="firstname" name="firstname" class="form-control" placeholder="Enter First Name"
-            required />
+          <input type="firstname" id="firstname" class="form-control" placeholder="Enter First Name" required />
         </div>
         <div class="form-group">
           <label for="lastname">Last Name</label>
-          <input type="lastname" id="lastname" name="lastname" class="form-control" placeholder="Enter Last Name"
-            required />
+          <input type="lastname" id="lastname" class="form-control" placeholder="Enter Last Name" required />
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" class="form-control" placeholder="Enter Your Email" required />
+          <input type="email" id="email" class="form-control" placeholder="Enter Your Email" required />
         </div>
         <div class="form-group">
           <label for="position">Position</label>
-          <input type="text" id="position" name="position" class="form-control" placeholder="Enter Name of Position"
-            required />
+          <input type="text" id="position" class="form-control" placeholder="Enter Name of Position" required />
         </div>
         <div class="form-group">
           <label for="company">Company</label>
-          <input type="text" id="company" name="company" class="form-control" placeholder="Enter Name of Company"
-            required />
+          <input type="text" id="company" class="form-control" placeholder="Enter Name of Company" required />
         </div>
-        <br>
-        <div class="form-group">
-          <label for="date">Interview Date</label>
-          <input type="text" id="date" name="date" class="form-control" placeholder="Enter Interview Date" />
-          <br>
-          <label for="time">Interview Time</label>
-          <input type="text" id="time" name="time" class="form-control" placeholder="Enter Interview Time" />
-        </div>
-        <br>
-
-        <button type="submit" class="btn btn-primary btn-block">Add Candidate</button>
+        <button type="submit" class="btn btn-block">Register</button>
       </form>
-
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="reg-modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Success</h4>
+        <a href="/home"><button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span></a>
+        </button>
+      </div>
+      <div class="modal-body">
+        New recruit successfully registered!
+      </div>
+      <div class="modal-footer">
+        <a href="/home"><button class="btn" type="button">Close</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="/js/addCandidate.js"></script>

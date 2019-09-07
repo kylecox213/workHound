@@ -9,28 +9,31 @@
   <a href="/logout"><button class="btn">Logout</button></a>
 </nav>
 
+
 <div class="row mt-5" style="max-width: 1200px; margin:auto">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
-      <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>Recruits</h1>
-      <img id="card-logo" src="/imgs/hound.png">
+      <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>Candidates</h1>
       <hr>
-      <div id="cands">
-        <ul id="candslist">
+      <img id="card-logo" src="/imgs/hound.png">
+      <table id="cand-list" class="table-hover">
+        <thead>
+          <tr>
+            <th scop="col">First Name</th>
+            <th scop="col">Last Name</th>
+            <th scop="col">More Options</th>
+          </tr>
+        </thead>
+        <tbody>
           {{#each candidates}}
-          <li>
-            <p>{{firstName}} {{lastName}} - <a href="/user/{{id}}">Candidate Page</a></p>
-            <ul class="jobslist">
-              {{#each jobs}}
-              <li>
-                <p>{{company}}, {{position}}</p>
-              </li>
-              {{/each}}
-            </ul>
-          </li>
+          <tr>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td><a href="/user/{{id}}">Candidate Page</a></td>
+          </tr>
           {{/each}}
-        </ul>
-      </div>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
