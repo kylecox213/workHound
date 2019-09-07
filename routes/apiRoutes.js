@@ -77,6 +77,24 @@ module.exports = function (app) {
   });
 
 
+
+  // CANDIDATE REGISTRATION - POST query
+  // Route for candidate registration by recruiter
+  app.post("/api/registercandidate", function (req, res) {
+    db.Candidate.create({
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName
+    }).then(newCandidate => {
+      // MAGIC METHODSSSSSSSSS
+      newCandidate.addRecruiter(req.user.RecruiterId)
+    }).then(function (data) {
+      res.json(data);
+    })
+  });
+
+
+
   // LOGOUT GET
   // Query for the logout function
   app.get("/logout", function (req, res) {
@@ -129,7 +147,7 @@ module.exports = function (app) {
         // After creating the new job...
       }).then(function (newJob) {
         // MAGIC METHODSSSSSSSSS
-        db.Candidate.findOne({ id: newJob.CandidateId}).then(candidate => {
+        db.Candidate.findOne({ id: newJob.CandidateId }).then(candidate => {
           candidate.addRecruiter(newJob.RecruiterId)
         }).then(function () {
           res.json(true);

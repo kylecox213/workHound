@@ -43,6 +43,14 @@ a:hover {
   transform: scaleX(-1);
 }
 
+tr  {
+  margin-top: 5px;
+}
+
+#addJob {
+  margin-top: 20px;
+}
+
 
 /* PROMO CSS
 These elements are only found on the promo page advertising the app */

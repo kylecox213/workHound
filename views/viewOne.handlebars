@@ -9,19 +9,35 @@
   <a href="/logout"><button class="btn">Logout</button></a>
 </nav>
 
-<div class="container">
-    <h1>{{candidate.firstName}}
+
+
+<div class="row mt-5" style="max-width: 1200px; margin:auto">
+  <div class="col-md-6 m-auto">
+    <div class="card card-body">
+      <h1>{{candidate.firstName}}
         {{candidate.lastName}}</h1>
-
-    <a href="/user/{{candidate.id}}/addjob"><button class="btn" id="addJob">Add a Job</button></a>
-
-<div id="jobs">
-  <ul id="jobslist">
-    {{#each jobs}}
-    <li><p>{{company}}, {{position}}</p></li>
-    {{/each}}
-  </ul>
-</div>
+      <h3 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>Job Prospects</h3>
+      <img id="card-logo" src="/imgs/hound.png">
+      <hr>
+      <table id="job-list" class="table-hover">
+        <thead>
+          <tr>
+            <th scop="col">Company</th>
+            <th scop="col">Position</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each jobs}}
+          <tr>
+            <td>{{company}}</td>
+            <td>{{position}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <a href="/user/{{candidate.id}}/addjob"><button class="btn btn-block" id="addJob">Add a Job</button></a>
+    </div>
+  </div>
 </div>
 
 

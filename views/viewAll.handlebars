@@ -1,32 +1,40 @@
 <nav class="navbar p-4">
-  <a href="/home"><button class="btn">Home</button></a>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search for Candidate" aria-label="Search">
-    <button class="btn my-2 my-sm-0" type="submit">Search</button>
-  </form>
-  <a href="/users/viewall"><button class="btn">View All Candidates</button></a>
-  <a href="/users/registercandidate"><button class="btn">Add Candidate</button></a>
-  <a href="/logout"><button class="btn">Logout</button></a>
+    <a href="/home"><button class="btn">Home</button></a>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search for Candidate" aria-label="Search">
+        <button class="btn my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <a href="/users/viewall"><button class="btn">View All Candidates</button></a>
+    <a href="/users/registercandidate"><button class="btn">Add Candidate</button></a>
+    <a href="/logout"><button class="btn">Logout</button></a>
 </nav>
 
-
-    <div id="cand-list">
-        <ul>
-            {{#each candidates}}
-                <li>
-                    <div class="col">
-                        {{firstName}}
-                    </div>
-                    <div class="col">
-                        {{lastName}}
-                    </div>
-                    <div class="col">
-                        <a href="/user/{{id}}">Candidate Page</a>
-                    </div>
-                </li>
-            {{/each}}
-        </ul>
+<div class="row mt-5" style="max-width: 1200px; margin:auto">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body">
+            <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>Candidates</h1>
+            <hr>
+            <img id="card-logo" src="/imgs/hound.png">
+            <table id="cand-list" class="table-hover">
+                <thead>
+                    <tr>
+                        <th scop="col">First Name</th>
+                        <th scop="col">Last Name</th>
+                        <th scop="col">More Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each candidates}}
+                    <tr>
+                        <td>{{firstName}}</td>
+                        <td>{{lastName}}</td>
+                        <td><a href="/user/{{id}}">Candidate Page</a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
-
+</div>
 
 <script type="text/javascript" src="/js/viewall.js"></script>

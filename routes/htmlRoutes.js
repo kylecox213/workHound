@@ -79,6 +79,21 @@ module.exports = function (app) {
   });
 
 
+  // CANDIDATE REGISTRATION BY RECRUITER - GET query
+  app.get("/users/registercandidate", function (req, res) {
+    if (!req.user) {
+      res.render("index");
+    }
+    else if (req.user.isCandidate) {
+      res.render("404");
+    }
+    else {
+      res.render("addCandidate");
+    }
+
+  });
+
+
   // LANDING PAGE - GET query 
   // Get request for the first page a user sees once logged in
   app.get("/members", isAuthenticated, function (req, res) {
