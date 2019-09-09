@@ -46,14 +46,7 @@ require("./routes/htmlRoutes")(app);
 // --------------------------------------------------------------------------
 
 
-// If running a test, set syncOptions.force to true
-// clearing the `testdb`
-let syncOptions;
-if (process.env.NODE_ENV === "test") {
-  syncOptions.force = true;
-}
-
-db.sequelize.sync(syncOptions).then(function() {
+db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
