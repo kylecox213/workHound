@@ -49,7 +49,7 @@ In tandem with authentication through Passport JS, users' passwords are encrypte
 
 The pages of this application are built with Handlebars templating, which provides an easy method to populate HTML documents with data relevant to individual users.
 
-
+---
 
 ### Features Still Under Development
 
