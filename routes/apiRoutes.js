@@ -104,29 +104,6 @@ module.exports = function (app) {
   });
 
 
-  // // OWN USER DATA GET
-  // // Query for user data
-  // app.get("/api/user_data/self", function (req, res) {
-  //   // If the client request contains no user...
-  //   if (!req.user) {
-  //     // Send back a blank object
-  //     res.json({});
-  //   }
-  //   // Otherwise, a user must be logged into the current session
-  //   else {
-  //     // So respond with the user's email and their User ID
-  //     // Also send the candidate and recruiter IDs
-  //     // Any individual user will only have one of these latter two
-  //     // Which provides an easy way to distinguish between user types
-  //     res.json({
-  //       email: req.user.email,
-  //       id: req.user.id,
-  //       candId: req.user.CandidateId,
-  //       recId: req.user.RecruiterId
-  //     });
-  //   }
-  // });
-
 
   // ADD A JOB POST
   // Query for adding jobs to the database
@@ -146,12 +123,11 @@ module.exports = function (app) {
         RecruiterId: parseInt(req.user.RecruiterId)
         // After creating the new job...
       }).then(function (newJob) {
-        // Pull candidate associated with the new job, then use the magic method to establish a recruiter relationship
+        // Pull candidate associated with the new job, then use the magic add method to establish a relationship
         db.Candidate.findOne({ where: { id: newJob.CandidateId } }).then(candidate => {
           candidate.addRecruiter(newJob.RecruiterId)
           // Then return true to the user
         }).then(function () {
-          console.log("exiting this function and returning true to the client...")
           res.json(true);
         });
       });

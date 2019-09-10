@@ -14,15 +14,19 @@
 <div class="row mt-5" style="max-width: 1200px; margin:auto">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
-      <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>Candidates</h1>
+      <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>My Recruits</h1>
       <hr>
       <img id="card-logo" src="/imgs/hound.png">
       <table id="cand-list" class="table-hover">
         <thead>
           <tr>
-            <th scop="col">First Name</th>
-            <th scop="col">Last Name</th>
-            <th scop="col">More Options</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">More Options</th>
+            <th scope="col">UID Key<a id="uid-tooltip" data-toggle="tooltip" data-placement="right"
+                title="Provide this key to your recruits when you ask them to register for an account with this app. It will sync their user account to the job(s) you have listed for them.">
+                ?
+              </a></th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +35,7 @@
             <td>{{firstName}}</td>
             <td>{{lastName}}</td>
             <td><a href="/user/{{id}}">Candidate Page</a></td>
+            <td>{{id}}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -40,4 +45,9 @@
 </div>
 
 
-<script type="text/javascript" src="/js/navbar.js"></script>
+<script type="text/javascript">
+  // Enable tooltips on the page
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
+</script>

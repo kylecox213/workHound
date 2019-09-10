@@ -33,7 +33,6 @@ module.exports = function (app) {
   // HOME PAGE - GET query
   // Get request for the user's homepage
   app.get("/home", function (req, res) {
-    console.log(req.user);
     // If the user is a candidate...
     if (req.user.isCandidate) {
       // Don't do anything
@@ -52,7 +51,6 @@ module.exports = function (app) {
         let candsPromise = recruiter.getCandidates();
         promises.push(candsPromise);
         Promise.all(promises).then(function (data) {
-          console.log(JSON.stringify(data));
           // The recruiter will be data[0]
           // All subsequent indices will be candidates in association with that recruiter
           // Send them to the other landing page
@@ -125,7 +123,6 @@ module.exports = function (app) {
       promises.push(jobsPromise);
       // Then, when all all the promises have returned, send the total data to the client
       Promise.all(promises).then(function (data) {
-        console.log(JSON.stringify(data));
         // The first index of the data will be the user
         // The second index will be an array of all the jobs
         // And render the viewOne page with that candidate's data
@@ -148,7 +145,6 @@ module.exports = function (app) {
         let candsPromise = recruiter.getCandidates();
         promises.push(candsPromise);
         Promise.all(promises).then(function (data) {
-          console.log(JSON.stringify(data));
           // The recruiter will be data[0]
           // All subsequent indices will be candidates in association with that recruiter
           // Send them to the other landing page
