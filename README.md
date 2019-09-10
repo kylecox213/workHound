@@ -20,11 +20,15 @@ This application was developed with tech recruiters in mind. The original concep
 Log in with the following credentials.
 
 **Recruiter Account**
+
 *Email Username:* recruiter@aol.com
+
 *Password:* hello
 
 **Candidate Account**
+
 *Email Username:* candidateone@aol.com
+
 *Password:* hello
 
 ---
