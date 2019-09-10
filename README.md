@@ -13,7 +13,21 @@ This application was developed with tech recruiters in mind. The original concep
 * View detailed information about each candidate registered with the app.
 * Register a new candidate with the app for the purposes of logging that person's recruitment.
 
+## Try it Out!
 
+[Link to deployed application](https://dvavs-workhound.herokuapp.com/).
+
+Log in with the following credentials.
+
+**Recruiter Account**
+*Email Username:* recruiter@aol.com
+*Password:* hello
+
+**Candidate Account**
+*Email Username:* candidateone@aol.com
+*Password:* hello
+
+---
 
 ## Development Team
 
@@ -29,7 +43,7 @@ This application was developed with tech recruiters in mind. The original concep
 ### Omar Spikes
 **Roles:** N/A.
 
-
+---
 
 ## Major Features
 
