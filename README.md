@@ -2,11 +2,11 @@
 
 **WorkHound** was developed as the second group project assignment for the University of Richmond Web Development Bootcamp (May - October 2019 cohort).
 
-This application was developed with tech recruiters in mind. The original concept aimed to provide a platform for recruiters to manage their own recruits, find new potential candidates from a pool of talented job-seekers registered with the app, and view the jobs for which those candidates had been put forward by other recruiters. The theory behind **WorkHound** is that adding some transparency to the recruitment process will allow recruiters to avoid contacting candidates about positions for which they have already been recruited. In effect, the app would save recruiters' and candidates' time alike.
+This application was developed with tech recruiters in mind. The original concept aimed to provide a platform for recruiters to manage their own recruits, find new potential candidates from a pool of talented job-seekers registered with the app, and view the jobs for which those candidates had been put forward by other recruiters. The theory behind **WorkHound** is that adding some transparency to the recruitment process will allow recruiters to avoid contacting candidates about positions for which they have already been recruited. In effect, the app would save both recruiters' and candidates' time.
 
 ## How it Works
 
-**WorkHound** allows users to register as either recruiters or candidates. However, as mentioned, **WorkHound** was largely developed with recruiters in mind, and so it provides much greater functionality to such users. At this time, candidates are able to view the positions for which their names have been forwarded by their recruiters - though there are plans to expand the candidate user experience with time. Recruiters, on the other hand, are able to do all of the following:
+**WorkHound** allows users to register as either recruiters or candidates. However, as mentioned, **WorkHound** was largely developed with recruiters in mind, and so it provides much greater functionality to those users. At this time, candidates are able to view the positions for which their names have been forwarded by their recruiters - though there are plans to expand the candidate user experience with time. Recruiters, on the other hand, are able to do all of the following:
 
 * View all candidates with whom they have established a relationship.
 * View all candidates registered with the app.
@@ -74,7 +74,7 @@ The pages of this application are built with Handlebars templating, which provid
 
 #### Candidate Registration Sync
 
-At present, users (both recruiters and candidates) can create their own accounts, and recruiters can create an account for candidates. However, we are still working on a way to link pre-registered candidates to their user accounts (involved in authentication and password encryption) when the candidate logs into the app for the first time.
+At present, users (both recruiters and candidates) can create their own accounts, and recruiters can create an account for candidates. However, we are still working on a way to link pre-registered candidates to their user accounts (which are involved in authentication and password encryption) when the candidate logs into the app for the first time.
 
 #### Candidate Search
 
