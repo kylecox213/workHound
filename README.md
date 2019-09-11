@@ -11,6 +11,7 @@ This application was developed with tech recruiters in mind. The original concep
 * View all candidates with whom they have established a relationship.
 * View all candidates registered with the app.
 * View detailed information about each candidate registered with the app.
+* List a job prospect for a candidate (the app will auto-populate the candidate's data in the submission form, only requiring the recruiter to provide job information).
 * Register a new candidate with the app for the purposes of logging that person's recruitment.
 
 ## Try it Out!
