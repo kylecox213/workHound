@@ -36,8 +36,9 @@ $(document).ready(function () {
                 let jobData = {
                     position: positionInput.val().trim(),
                     company: companyInput.val().trim(),
-                    CandidateId: data.CandidateId
+                    CandidateId: data.id
                 }
+                console.log(jobData);
                 $.post("/api/addjob", jobData)
                     .then(function (data) {
                         if (data) {

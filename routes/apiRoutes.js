@@ -88,9 +88,12 @@ module.exports = function (app) {
     }).then(newCandidate => {
       // Magic method to add a relationship
       newCandidate.addRecruiter(req.user.RecruiterId)
-    }).then(function (data) {
-      res.json(data);
-    })
+      // Send the new candidate data back to the client
+      res.json(newCandidate);
+      console.log("\n\nHere is the data returned to the client after adding the relationship");
+      console.log(newCandidate);
+      console.log("\n\n");
+    });
   });
 
 
