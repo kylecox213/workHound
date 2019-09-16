@@ -12,6 +12,32 @@ module.exports = function (app) {
   });
 
 
+  // USER REGISTRATION CHECK
+  // Query to see if an email is already registered to a user account
+  app.post("/api/registercheck", function (req, res) {
+    console.log(req.body);
+    console.log(JSON.stringify(req.body));
+    // Query the database for a user with the email the user is attempting to register
+    db.User.findOne({ where: { email: req.body.email } })
+      .then(function (existingUser) {
+        // If there is an existing user with that email...
+        if (existingUser) {
+          // Create an object with a boolean set to true
+          let affirmative = { emailRegistered: true };
+          // Send the object as JSON to the client
+          res.json(affirmative);
+          throw new Error("That email is already registered to a User account.");
+        }
+        else {
+          // Create an object with a boolean set to false
+          let negative = { emailRegistered: false };
+          // Send the object as JSON to the client
+          res.json(negative);
+        };
+      });
+  });
+
+
   // USER REGISTRATION POST
   // Query for user registration
   app.post("/api/signup", function (req, res) {

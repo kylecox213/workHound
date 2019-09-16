@@ -6,7 +6,7 @@ $(document).ready(function () {
   let passwordVerify = $("input#password-verify");
   let firstNameInput = $("input#firstname");
   let lastNameInput = $("input#lastname");
-
+  let uidInput = $("input#key");
 
   // Enable tooltips on the page
   $(function () {
@@ -37,7 +37,7 @@ $(document).ready(function () {
     let acctType = $("input[name='acct-type']:checked").val();
     // Pull in the rest of the form fields' data
     let userData = {
-      email: emailInput.val().trim(),
+      email: emailInput.val().trim().toLowerCase(),
       password: verifiedPass,
       firstName: firstNameInput.val().trim(),
       lastName: lastNameInput.val().trim()
@@ -59,14 +59,43 @@ $(document).ready(function () {
       // Don't let them proceed
       return;
     }
-    // If we have an email and password, run the signUpUser function
-    signUpUser(userData);
+    // If the user has entered a UID key...
+    if (uidInput.val().trim() !== "") {
+      // Put it into the userData object
+      userData.key = uidInput.val().trim();
+    }
+    checkIfRegistered(userData);
     // Clear the values from the input fields
     emailInput.val("");
     passwordInput.val("");
+    passwordVerify.val("");
     firstNameInput.val("");
     lastNameInput.val("");
+    uidInput.val("");
   });
+
+
+  // Function to check whether an email is already associated with a user account
+  function checkIfRegistered(userData) {
+    console.log(userData);
+    // Send a GET query to the API to 
+    $.post("/api/registercheck", {
+      email: userData.email
+    }).then(function (regCheck) {
+      // If the email is already registered to an account...
+      // Test against the string value true because the response body does not pass a boolean
+      if (regCheck.emailRegistered === "true") {
+        // Alert the user to that fact and provide suggestions
+        alert("That email is already registered to a user account.")
+      }
+      // Otherwise, they are clear to register with that email, so...
+      else {
+        // Call the signup function
+        signUpUser(userData);
+      }
+    })
+  };
+
 
 
   // Function to send the user registration data to the API
