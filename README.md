@@ -60,7 +60,7 @@ Log in with the following credentials.
 
 In tandem with authentication through Passport JS, users' passwords are encrypted with Bcrypt JS. At the time of account creation, passwords are hashed before being stored in the database. Likewise, login attempts hash passwords before comparison to stored values. This prevents the passing of plain-text password information, adding security to user accounts.
 
-#### Candidate Registration Sync
+### Candidate Registration Sync
 
 Users - both recruiters and candidates - can create their own accounts, and recruiters can create an account for candidates. When a recruiter creates an account for a candidate, s/he will be provided with a unique UID key for that candidate's account. Recruiters can then pass that key along to their recruits, who then must enter it into the proper form field when registering their own account. If a candidate fails to do so at the time that s/he attempts registration, they will be barred from signing up and will be directed to provide the key. When the key is provided, the server will check for a match among existing candidates, link that candidate to the newly-registered user, and from then on the candidate will be able to see all jobs for which they have been put forward by their recruiters.
 
