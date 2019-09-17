@@ -28,8 +28,12 @@ $(document).ready(function () {
     }
     // If the user doesn't have a proper password by now...
     if (!verifiedPass) {
-      // Alert them as much
-      alert("Your passwords do not match.")
+      // Toggle the modal to alert the user to that fact and provide suggestions
+      $("#err-msg").html(`<p>Your passwords do not match.</p>
+      <p>Please re-type them.</p>`);
+      $("#err-modal").modal("toggle");
+      passwordInput.val("");
+      passwordVerify.val("");
       // Return from the function to prevent the final signup from going through
       return;
     }
@@ -77,16 +81,17 @@ $(document).ready(function () {
 
   // Function to check whether an email is already associated with a user account
   function checkIfRegistered(userData) {
-    console.log(userData);
     // Send a GET query to the API to 
     $.post("/api/registercheck", {
       email: userData.email
     }).then(function (regCheck) {
       // If the email is already registered to an account...
       // Test against the string value true because the response body does not pass a boolean
-      if (regCheck.emailRegistered === "true") {
-        // Alert the user to that fact and provide suggestions
-        alert("That email is already registered to a user account.")
+      if (regCheck.emailRegistered) {
+        // Toggle the modal to alert the user to that fact and provide suggestions
+        $("#err-msg").html(`<p>A user account is already registered with that email address.</p>
+        <p>Please create an account using a different email or <a href="/login">log in</a>.</p>`);
+        $("#err-modal").modal("toggle");
       }
       // Otherwise, they are clear to register with that email, so...
       else {
