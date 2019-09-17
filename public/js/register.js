@@ -113,8 +113,8 @@ $(document).ready(function () {
       // If the server response indicates there is no key match (in the event that a UID is specified)
       // Use a strict test so that this condition is not satisfied by the mere absence of the property
       if (data.keyMatch === false) {
-        $("#err-msg").html(`<p>No account was found with the UID key provided.</p>
-        <p>Please retry your registration or contact your recruiter to clarify your correct UID key.</p>`);
+        $("#err-msg").html(`<p>No account was found with the UID key and email combination provided.</p>
+        <p>Please retry your registration or contact your recruiter to clarify your correct UID key and registered email address.</p>`);
         $("#err-modal").modal("toggle");
       }
       // If the server response indicates an email match has been found (in the event that no UID is specified)
