@@ -15,24 +15,20 @@ module.exports = function (app) {
   // USER REGISTRATION CHECK
   // Query to see if an email is already registered to a user account
   app.post("/api/registercheck", function (req, res) {
-    console.log(req.body);
-    console.log(JSON.stringify(req.body));
     // Query the database for a user with the email the user is attempting to register
-    db.User.findOne({ where: { email: req.body.email } })
+    db.User.findOne({
+      where: { email: req.body.email }
+    })
       .then(function (existingUser) {
         // If there is an existing user with that email...
         if (existingUser) {
-          // Create an object with a boolean set to true
-          let affirmative = { emailRegistered: true };
-          // Send the object as JSON to the client
-          res.json(affirmative);
+          // Send an object with a boolean set to true as JSON to the client
+          res.json({ emailRegistered: true });
           throw new Error("That email is already registered to a User account.");
         }
         else {
-          // Create an object with a boolean set to false
-          let negative = { emailRegistered: false };
-          // Send the object as JSON to the client
-          res.json(negative);
+          // Send an object with a boolean set to false as JSON to the client
+          res.json({ emailRegistered: false });
         };
       });
   });
@@ -44,32 +40,90 @@ module.exports = function (app) {
     // If the client request indicates that the user is signing up as a candidate...
     // Test against the string value true because the request body does not pass a boolean
     if (req.body.isCandidate === "true") {
-      // Create a new CANDIDATE in the DB
-      db.Candidate.create({
-        // Funnel in the first and last name info, plus email
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email
-        // On callback, pass in the new candidate data
-      }).then(function (newCand) {
-        // Create a new USER using the sequelize create method
-        let newUser = db.User.create({
-          // Pass in the relevant information, including CandidateId from the candidate just created
-          email: req.body.email,
-          password: req.body.password,
-          isCandidate: req.body.isCandidate,
-          isRecruiter: req.body.isRecruiter,
-          CandidateId: parseInt(newCand.id)
+      // If the recruiter provided a UID key...
+      if (req.body.key) {
+        // Test to see if there is already a candidate account registered by a recruiter for this individual
+        // By checking for one with that UID key AND the email provided
+        db.Candidate.findOne({
+          where: { id: req.body.key, email: req.body.email }
+        }).then(function (existingCand) {
+          // If an existing candidate is found...
+          if (existingCand) {
+            // Then there's no need to create a candidate account, so just skip to creating the user account
+            // Create a new USER using the sequelize create method
+            db.User.create({
+              // Pass in the relevant information, including CandidateId from the candidate just created
+              email: req.body.email,
+              password: req.body.password,
+              isCandidate: req.body.isCandidate,
+              isRecruiter: req.body.isRecruiter,
+              CandidateId: parseInt(existingCand.id)
+            }).then(function (newUser) {
+              // Return the newly created USER
+              return newUser;
+            }).then(function () {
+              // On callback, take the new USER through the login route to get authenticated and logged in
+              res.redirect(307, "/api/login");
+              return;
+            });
+          }
+          // If no existing candidate was found...
+          else {
+            // Return a piece of data to the client indicating that no match was found for the UID
+            // This will prompt the client-side logic to show the appropriate error message
+            res.json({ keyMatch: false });
+            return;
+          }
+        }).catch(function (err) {
+          // If there's an error, send it as JSON
+          res.json(err);
         });
-        return newUser;
-      }).then(function () {
-        // On callback, take the new USER through the login route to get authenticated and logged in
-        res.redirect(307, "/api/login");
-        return;
-      }).catch(function (err) {
-        // If there's an error, send it as JSON
-        res.json(err);
-      });
+      }
+      // Otherwise, still check to see if a candidate already exists with that email...
+      else {
+        db.Candidate.findOne({
+          where: { email: req.body.email }
+        }).then(function (existingCand) {
+          // If there is an existing candidate with that email address...
+          if (existingCand) {
+            // Return a piece of data to the client indicating that a match was found for their email
+            // This will prompt the client-side logic to show the appropriate error message
+            res.json({ emailMatch: true });
+            return;
+          }
+          // Otherwise, the user is free to go ahead with registration
+          else {
+            // Create a new CANDIDATE in the DB
+            db.Candidate.create({
+              // Funnel in the first and last name info, plus email
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+              email: req.body.email
+              // On callback, pass in the new candidate data
+            }).then(function (newCand) {
+              // Create a new USER using the sequelize create method
+              db.User.create({
+                // Pass in the relevant information, including CandidateId from the candidate just created
+                email: req.body.email,
+                password: req.body.password,
+                isCandidate: req.body.isCandidate,
+                isRecruiter: req.body.isRecruiter,
+                CandidateId: parseInt(newCand.id)
+              }).then(function (newUser) {
+                // Return the newly created USER
+                return newUser;
+              }).then(function () {
+                // On callback, take the new USER through the login route to get authenticated and logged in
+                res.redirect(307, "/api/login");
+                return;
+              });
+            }).catch(function (err) {
+              // If there's an error, send it as JSON
+              res.json(err);
+            });
+          }
+        });
+      }
     }
     // Otherwise, the client must have signed up as a recruiter...
     else {
@@ -113,12 +167,9 @@ module.exports = function (app) {
       lastName: req.body.lastName
     }).then(newCandidate => {
       // Magic method to add a relationship
-      newCandidate.addRecruiter(req.user.RecruiterId)
+      newCandidate.addRecruiter(req.user.RecruiterId);
       // Send the new candidate data back to the client
       res.json(newCandidate);
-      console.log("\n\nHere is the data returned to the client after adding the relationship");
-      console.log(newCandidate);
-      console.log("\n\n");
     });
   });
 
@@ -153,7 +204,9 @@ module.exports = function (app) {
         // After creating the new job...
       }).then(function (newJob) {
         // Pull candidate associated with the new job, then use the magic add method to establish a relationship
-        db.Candidate.findOne({ where: { id: newJob.CandidateId } }).then(candidate => {
+        db.Candidate.findOne({
+          where: { id: newJob.CandidateId }
+        }).then(candidate => {
           candidate.addRecruiter(newJob.RecruiterId)
           // Then return true to the user
         }).then(function () {

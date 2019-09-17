@@ -106,16 +106,31 @@ $(document).ready(function () {
   // Function to send the user registration data to the API
   function signUpUser(userData) {
     // Send a POST query to the API URL containing the data related to user form input
-    $.post("/api/signup", {
-      email: userData.email,
-      password: userData.password,
-      isCandidate: userData.isCandidate,
-      isRecruiter: userData.isRecruiter,
-      firstName: userData.firstName,
-      lastName: userData.lastName
+    $.post("/api/signup",
+      userData
       // On callback, append the user data to the window so the user is logged in immediately
-    }).then(function (data) {
-      window.location.replace(data);
+    ).then(function (data) {
+      // If the server response indicates there is no key match (in the event that a UID is specified)
+      // Use a strict test so that this condition is not satisfied by the mere absence of the property
+      if (data.keyMatch === false) {
+        $("#err-msg").html(`<p>No account was found with the UID key provided.</p>
+        <p>Please retry your registration or contact your recruiter to clarify your correct UID key.</p>`);
+        $("#err-modal").modal("toggle");
+      }
+      // If the server response indicates an email match has been found (in the event that no UID is specified)
+      else if (data.emailMatch) {
+        $("#err-msg").html(`<p>A candidate has already been registered with that email address.</p>
+        <p>Please try one of the following suggestions to register your account:
+          <ul>
+            <li>Make sure you entered your email address correctly.</li>
+            <li>Enter the UID key provided to you by your recruiter before submitting the form.</li>
+            <li>Contact your recruiter to obtain your UID key.</li>
+          </ul>
+        </p>`);
+        $("#err-modal").modal("toggle");
+      }
+      // Otherwise, there must not be a problem, so proceed with registration and login
+      else window.location.replace(data);
       // If there's an error, handle it
     }).catch(handleLoginErr);
   };
