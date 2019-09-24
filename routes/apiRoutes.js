@@ -178,7 +178,7 @@ module.exports = function (app) {
   // LOGOUT GET
   // Query for the logout function
   app.get("/logout", function (req, res) {
-    // Log the user out of the current session and send them back to the index page
+    // Log the user out of the current session and send them back to the landing index page
     req.logout();
     res.redirect("/");
   });

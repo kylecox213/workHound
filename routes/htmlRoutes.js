@@ -12,7 +12,7 @@ module.exports = function (app) {
       // Don't do anything
       res.redirect("/members");
     }
-    // Otherwise, send them to the index (login) page
+    // Otherwise, send them to the landing index page
     res.render("index");
   });
 
@@ -25,8 +25,8 @@ module.exports = function (app) {
       // Don't do anything
       return;
     }
-    // Otherwise, send them to the index (login) page
-    res.render("index");
+    // Otherwise, send them to the login page
+    res.render("login");
   });
 
 
@@ -40,16 +40,24 @@ module.exports = function (app) {
     }
     // Otherwise, they must be a recruiter, so...
     else {
+      // Find a recruiter with the correct ID
       db.Recruiter.findOne({ where: { id: req.user.RecruiterId } }).then(recruiter => {
+        // Create an array into which we can push promises
         let promises = [];
+        // Create a promise to pull the recruiter data again
         let recPromise = db.Recruiter.findOne({
           where: {
             id: req.user.RecruiterId
           }
         });
+        // Push it into the promise array
         promises.push(recPromise);
+        // Use the Sequelize magic method to pull the recruiter's candidates
+        // This is why we've queried the recruiter twice, so we can use this method
         let candsPromise = recruiter.getCandidates();
+        // Push this next promise into the array
         promises.push(candsPromise);
+        // Once all promises are returned, then proceed with the data
         Promise.all(promises).then(function (data) {
           // The recruiter will be data[0]
           // All subsequent indices will be candidates in association with that recruiter
@@ -79,13 +87,19 @@ module.exports = function (app) {
 
   // CANDIDATE REGISTRATION BY RECRUITER - GET query
   app.get("/users/registercandidate", function (req, res) {
+    // If the user isn't logged in...
     if (!req.user) {
-      res.render("index");
+      // Redirect them to the login page
+      res.render("login");
     }
+    // If the user is a candidate...
     else if (req.user.isCandidate) {
+      // Give them a 404 - candidates can't register other candidates!
       res.render("404");
     }
+    // Otherwise...
     else {
+      // Proceed to the add candidate page
       res.render("addCandidate");
     }
 
@@ -164,7 +178,7 @@ module.exports = function (app) {
     // If the client request contains no user...
     if (!req.user) {
       // Send them to the login page
-      res.render("index");
+      res.render("login");
     }
     // Otherwise, they must be logged in, so...
     else {
@@ -187,7 +201,7 @@ module.exports = function (app) {
     // If the client request contains no user...
     if (!req.user) {
       // Send them to the login page
-      res.render("index");
+      res.render("login");
     }
     // Otherwise, they must be logged in, so...
     else {
@@ -235,7 +249,7 @@ module.exports = function (app) {
     // If the client request contains no user...
     if (!req.user) {
       // Send them to the login page
-      res.render("index");
+      res.render("login");
     }
     // Otherwise, they must be logged in, so...
     else {

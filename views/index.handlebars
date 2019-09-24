@@ -1,26 +1,36 @@
 <div class="row mt-5" style="max-width: 1200px; margin:auto">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body">
-      <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Login</h1>
-      <img id="card-logo" src="/imgs/hound.png">
-      <form class="login" action="/api/login" method="POST">
-        <div class="form-group">
-          <label for="email-input">Email</label>
-          <input type="email" id="email-input" name="email" class="form-control" placeholder="Enter Email" required>
+    <div class="col-md-8 m-auto">
+        <div class="card-header">
+            <h1 class="text-center mb-3 promo-title"><i class="fas fa-sign-in-alt"></i> WorkHound</h1>
         </div>
-        <div class="form-group">
-          <label for="password-input">Password</label>
-          <input type="password" id="password-input" name="password" class="form-control" placeholder="Enter Password"
-            required>
+        <div class="card card-body">
+            <h3 class="promo-subtitle">Meet your new best friend in recruiting.</h3>
+            <p>WorkHound is a website designed with tech recruiters in mind. We want to help you find, track, and manage
+                the talented professionals you work with.</p>
+            <p>Register new candidates to the system, or choose from a list of all candidates already registered. Save
+                valuable time by viewing the list of jobs for which a candidate has already been submitted, and build
+                rapport with your talented recruits by being the person who contacts them with new and exciting
+                opportunities they haven't seen before.</p>
+            <p>Direct your recruits to register with WorkHound using their unique UID (generated at the time you
+                register them), and they will have the ability to track their jobs and keep on top of everything you're
+                doing for them.</p>
+            <div class="row">
+                <div class="col-8">
+                    <h3 class="promo-subtitle" id="start-title">
+                        Let's get started.
+                    </h3>
+                    <p id="start-msg">
+                        <a href="/login">Log in</a> or <a href="/users/register">register</a>.
+                    </p>
+                </div>
+                <div class="col-4">
+                    <img id="promo-img" src="/imgs/hound.png">
+                </div>
+            </div>
+
         </div>
-        <button type="submit" class="btn btn-block">Login</button>
-      </form>
-      <p class="lead mt-4">
-        No Account? <a href="/users/register">Register</a>
-      </p>
     </div>
-  </div>
 </div>
 
 
-<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>

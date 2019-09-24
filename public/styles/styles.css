@@ -53,8 +53,40 @@ tr  {
 
 
 /* PROMO CSS
+(i.e., Index page CSS)
 These elements are only found on the promo page advertising the app */
 
+.card-header  {
+  background: #0F593B;
+  color: #FFF;
+}
+
+.promo-title  {
+  font-size: 80px;
+}
+
+.promo-subtitle {
+  color: #0F593B;
+}
+
+#start-title  {
+  position: absolute;
+  top: 15%;
+  left: 15px;
+}
+
+#start-msg  {
+  font-size: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 15px;
+}
+
+#promo-img  {
+  width: 100%;
+  height: auto;
+  transform: scaleX(-1);
+}
 
 
 /* REGISTRATION CSS
