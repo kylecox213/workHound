@@ -42,7 +42,7 @@ Log in with the following credentials.
 **Roles:** Design of initial HTML document object model for login and user registration pages.
 
 ### Alex Cox
-**Roles:** Concept originator; authentication implementation; database design; project management.
+**Roles:** Concept originator; JavaScript programmer authentication implementation; database design; project management.
 
 ### Dylan Vavra
 **Roles:** JavaScript programmer; authentication implementation; database design; CSS stylization; Heroku deployment.
