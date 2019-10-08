@@ -4,6 +4,8 @@
 
 This application was developed with tech recruiters in mind. The original concept aimed to provide a platform for recruiters to manage their own recruits, find new potential candidates from a pool of talented job-seekers registered with the app, and view the jobs for which those candidates had been put forward by other recruiters. The theory behind **WorkHound** is that adding some transparency to the recruitment process will allow recruiters to avoid contacting candidates about positions for which they have already been recruited. In effect, the app would save both recruiters' and candidates' time.
 
+<img src="./public/imgs/workhound.png" alt="WorkHound" title="WorkHound Recruiter Page Screenshot" width=600 height="auto">
+
 ## How it Works
 
 **WorkHound** allows users to register as either recruiters or candidates. However, as mentioned, **WorkHound** was largely developed with recruiters in mind, and so it provides much greater functionality to those users. At this time, candidates are able to view the positions for which their names have been forwarded by their recruiters - though there are plans to expand the candidate user experience with time. Recruiters, on the other hand, are able to do all of the following:
@@ -16,7 +18,7 @@ This application was developed with tech recruiters in mind. The original concep
 
 ## Try it Out!
 
-[Link to deployed application](https://dvavs-workhound.herokuapp.com/).
+Link to [deployed application](https://dvavs-workhound.herokuapp.com/).
 
 Log in with the following credentials.
 
